@@ -26,6 +26,7 @@ public partial class MainWindow : Window
                 foreach (var option in game.All) option.PropertyChanged += (_, e) => { if (ReferenceEquals(model, game) && e.PropertyName == nameof(Option.Selected)) { UpdateSummary(); game.UpdateNotes(); } };
             model = games["fm5"];
             BindGame();
+            InitializeFork(previewOnly);
             if (!previewOnly)
             {
                 Loaded += async (_, _) => await RefreshBackend();
@@ -52,6 +53,7 @@ public partial class MainWindow : Window
             PreGameSettingsBox.IsChecked = model.SkipPreGame;
             if (updateStatus) StatusLabel.Text = model.Status;
             BuildButton.IsEnabled = model.CanBuild && !launching; UpdateSummary();
+            ForkAfterRefresh(updateStatus);
         }
         catch (Exception ex) { if (ReferenceEquals(model, selected)) { if (updateStatus) StatusLabel.Text = ex.Message; BuildButton.IsEnabled = false; } }
         finally

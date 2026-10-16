@@ -16,6 +16,7 @@ internal static class SelfTests
   Directory.CreateDirectory(Path.Combine(temp,"tools"));File.WriteAllText(Path.Combine(temp,"tools","pc_launcher_backend.py"),"# Fixture root marker; never executed");
   try {
    PortablePayloadTests.Run(Check,temp);
+   ForkTests.Run(Check,temp);
    var model=new LauncherModel(temp);
    Check(!model.CanBuild,"Missing backend cannot launch");
    Check(model.Video.Length+model.Audio.Length==8 && model.All.Count()==9,"Eight game options plus independent builder option");
