@@ -16,6 +16,11 @@ kinds of changes on top of upstream's `main`:
   - A source-built Hub runs the backend with the checkout's `.venv` Python.
   - The Hub's default output folder is `builds\RaceOne5`; the backend refused
     the old default inside `launcher\`.
+  - Impulse triggers: the game's trigger rumble levels, which the engine's
+    gamepad setter drops, reach Xbox One and Series controllers through
+    Windows.Gaming.Input, under the same gates as the main motors (README,
+    Options). Tested in races with a Series controller over Bluetooth: the
+    brake trigger buzzes on wheel lock, the throttle trigger on wheel spin.
 - **Fork-only extras** that have no place upstream:
   - `fork\setup.ps1` and `fork\update.ps1`, which set up this checkout from the
     pinned v0.1.0 release components and the sources, publish the Hub to
