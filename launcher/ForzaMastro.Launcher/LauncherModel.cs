@@ -144,7 +144,8 @@ public sealed class LauncherModel
         if (gameId != "fm5") throw new ArgumentOutOfRangeException(nameof(gameId));
         GameId = gameId;
         ProjectRoot = Path.GetFullPath(root);
-        OutputDirectory = Path.Combine(ProjectRoot, "launcher", "output", "RaceOne5");
+        // The backend refuses outputs inside launcher/, so the default lives in the ignored builds/ folder.
+        OutputDirectory = Path.Combine(ProjectRoot, "builds", "RaceOne5");
         Video[1].Selected = Video[1].Choices.Single(choice => choice.Id == "60");
         Video[2].Selected = Video[2].Choices.Single(choice => choice.Id == "msaax2");
         Load();
@@ -189,8 +190,8 @@ public sealed class LauncherModel
                 var state = JsonSerializer.Deserialize<BuilderPreferences>(File.ReadAllText(preferences), Json);
                 if (state is not null)
                 {
-                    if (Path.IsPathFullyQualified(state.OutputDirectory) && !string.Equals(Path.GetFullPath(state.OutputDirectory),
-                        Path.Combine(ProjectRoot, "launcher", "output", "ForzaMastro5"), StringComparison.OrdinalIgnoreCase)) OutputDirectory = state.OutputDirectory;
+                    if (Path.IsPathFullyQualified(state.OutputDirectory) && !new[] { "ForzaMastro5", "RaceOne5" }.Any(name => string.Equals(Path.GetFullPath(state.OutputDirectory),
+                        Path.Combine(ProjectRoot, "launcher", "output", name), StringComparison.OrdinalIgnoreCase))) OutputDirectory = state.OutputDirectory;
                     if (Path.IsPathFullyQualified(state.GameFolder)) GameFolder = state.GameFolder;
                     CreateDesktopShortcut = state.CreateDesktopShortcut;
                 }

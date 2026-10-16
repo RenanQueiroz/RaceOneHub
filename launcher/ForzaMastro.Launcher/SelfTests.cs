@@ -222,7 +222,9 @@ internal static class SelfTests
    Directory.CreateDirectory(Path.Combine(migrationRoot,"launcher","data"));
    File.WriteAllText(Path.Combine(migrationRoot,"launcher","data","builder-state.json"),JsonSerializer.Serialize(new{outputDirectory=Path.Combine(migrationRoot,"launcher","output","ForzaMastro5")}));
    var migrated=new LauncherModel(migrationRoot);
-   Check(migrated.OutputDirectory==Path.Combine(migrationRoot,"launcher","output","RaceOne5"),"Previous default output directory migrates to new product name");
+   Check(migrated.OutputDirectory==Path.Combine(migrationRoot,"builds","RaceOne5"),"Previous default output directory migrates to new product name");
+   File.WriteAllText(Path.Combine(migrationRoot,"launcher","data","builder-state.json"),JsonSerializer.Serialize(new{outputDirectory=Path.Combine(migrationRoot,"launcher","output","RaceOne5")}));
+   Check(new LauncherModel(migrationRoot).OutputDirectory==Path.Combine(migrationRoot,"builds","RaceOne5"),"Refused launcher output default migrates to builds");
    foreach(var gameId in new[]{"fm5"})
    {
     var legacyRoot=Path.Combine(temp,"legacy-aa-"+gameId);var legacyModel=new LauncherModel(legacyRoot,gameId);
