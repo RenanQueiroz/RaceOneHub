@@ -48,3 +48,9 @@ settings.json
 
 # Private temporary runtime-preparation trees can contain user-derived inputs.
 **/.raceone-prepare-*/
+
+# Fork-only extras (FORK.md): the published Hub, setup logs, downloads and local settings.
+/launcher/app/
+/fork/logs/
+/fork/cache/
+/fork/local.json
