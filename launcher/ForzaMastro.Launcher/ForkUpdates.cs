@@ -45,9 +45,10 @@ public static class ForkUpdates
     public static Process StartUpdate(string root, string progressFile) =>
         Process.Start(Script(root, "update.ps1", "-SkipHub", "-ProgressFile", progressFile)) ?? throw new IOException("Could not start the update.");
 
-    // Publishes the Hub once this process has exited, then starts it again.
+    // Publishes the Hub once this process has exited, then starts it again. The
+    // shortcut already points at launcherpp, so it is left as it is.
     public static void StartHubRestart(string root, int processId) =>
-        Process.Start(Script(root, "setup.ps1", "-HubOnly", "-StartHub", "-WaitForPid", processId.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+        Process.Start(Script(root, "setup.ps1", "-HubOnly", "-StartHub", "-NoShortcut", "-WaitForPid", processId.ToString(System.Globalization.CultureInfo.InvariantCulture)));
 
     private static ProcessStartInfo Script(string root, string name, params string[] arguments)
     {
