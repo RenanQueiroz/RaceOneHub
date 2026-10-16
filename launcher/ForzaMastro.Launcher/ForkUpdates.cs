@@ -62,8 +62,9 @@ public static class ForkUpdates
     private static string Repository(string? url)
     {
         if (string.IsNullOrWhiteSpace(url)) return "";
-        var trimmed = url.Trim().TrimEnd('/');
+        var trimmed = url.Trim().TrimEnd('/', '\\');
         if (trimmed.EndsWith(".git", StringComparison.OrdinalIgnoreCase)) trimmed = trimmed[..^4];
+        if (!trimmed.Contains("://", StringComparison.Ordinal) && !trimmed.Contains('@')) return Path.GetFileName(trimmed); // A local path.
         var parts = trimmed.Replace(':', '/').Split('/');
         return parts.Length >= 2 ? parts[^2] + "/" + parts[^1] : trimmed;
     }
