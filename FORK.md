@@ -12,15 +12,19 @@ kinds of changes on top of upstream's `main`:
     the two engine locale routines it needs from the release's prepared host,
     as the bridge hydration already does. The bridge, its template and the
     template manifest built this way match the v0.1.0 release byte for byte
-    (`docs/BUILDING.md`).
+    (`docs/BUILDING.md`). [Upstream PR #3](https://github.com/LoZazaMastro/RaceOneHub/pull/3).
   - A source-built Hub runs the backend with the checkout's `.venv` Python.
+    [Upstream PR #4](https://github.com/LoZazaMastro/RaceOneHub/pull/4).
   - The Hub's default output folder is `builds\RaceOne5`; the backend refused
-    the old default inside `launcher\`.
+    the old default inside `launcher\`. Not proposed upstream as it is: in the
+    packaged Hub the project root is the component cache in `%LOCALAPPDATA%`,
+    so that default would put the game there.
   - Impulse triggers: the game's trigger rumble levels, which the engine's
     gamepad setter drops, reach Xbox One and Series controllers through
     Windows.Gaming.Input, under the same gates as the main motors (README,
     Options). Tested in races with a Series controller over Bluetooth: the
     brake trigger buzzes on wheel lock, the throttle trigger on wheel spin.
+    [Upstream PR #2](https://github.com/LoZazaMastro/RaceOneHub/pull/2).
 - **Fork-only extras** that have no place upstream:
   - `fork\setup.ps1` and `fork\update.ps1`, which set up this checkout from the
     pinned v0.1.0 release components and the sources, publish the Hub to
